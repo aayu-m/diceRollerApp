@@ -1,46 +1,56 @@
 package com.kotlinApps.diceroller
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.kotlinApps.diceroller.ui.theme.DiceRollerTheme
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 
-class MainActivity : ComponentActivity() {
+import androidx.appcompat.app.AppCompatActivity
+import com.kotlinApps.diceroller.databinding.ActivityMainBinding
+import kotlin.random.Random
+
+
+class MainActivity : AppCompatActivity() {
+
+//    private lateinit var binding : ActivityMainBinding
+    lateinit var diceImage : ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            DiceRollerTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
-        }
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(binding.root);
+
+        setContentView(R.layout.activity_main)
+        diceImage = findViewById(R.id.dice_image)
+
+        //replacement for findViewByID
+//        binding.rollButton.text ="Let's Roll"
+    var rollButton : Button = findViewById(R.id.roll_button);
+//    rollButton.text ="Let's Roll"
+    rollButton.setOnClickListener {
+//        Toast.makeText(this,"Rolled Successfully", Toast.LENGTH_SHORT).show()
+        rollDice();
     }
-}
+    }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    private fun rollDice() {
+//       var resultText : TextView = findViewById(R.id.result_text)
+//        var randomInt = Random.nextInt(1,7)
+//        resultText.text= randomInt.toString()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DiceRollerTheme {
-        Greeting("Android")
+//        var diceImage : ImageView = findViewById(R.id.dice_image)
+        var randomInt = Random.nextInt(1,7)
+
+        var drawableImage = when(randomInt){
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3-> R.drawable.dice_3
+            4-> R.drawable.dice_4
+            5-> R.drawable.dice_5
+            6-> R.drawable.dice_6
+            else -> R.drawable.empty_dice
+        }
+
+        diceImage.setImageResource(drawableImage)
     }
 }
